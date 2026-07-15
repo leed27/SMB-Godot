@@ -44,7 +44,7 @@ animations = [{
 size = Vector2(10, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyxac"]
-size = Vector2(12, 12)
+size = Vector2(12, 6)
 
 [node name="Goombareal" type="CharacterBody2D"]
 process_mode = 1

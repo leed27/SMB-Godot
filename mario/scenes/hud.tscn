@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bplds73ep4drw"]
+[gd_scene load_steps=14 format=3 uid="uid://bplds73ep4drw"]
 
 [ext_resource type="FontFile" uid="uid://ban13rxpnpcfx" path="res://mario/assets/fonts/nintendo-nes-font.ttf" id="1_mbhd5"]
 [ext_resource type="Script" path="res://mario/scripts/world-num.gd" id="2_4la43"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://mario/scripts/Score.gd" id="5_lydrt"]
 [ext_resource type="Texture2D" uid="uid://4byg7w06p6b1" path="res://mario/assets/sprites/hud.png" id="5_vqw33"]
 [ext_resource type="Script" path="res://mario/scripts/CoinCount.gd" id="6_loimp"]
+[ext_resource type="Texture2D" uid="uid://diqygxu566dy8" path="res://mario/assets/sprites/title screen.png" id="9_vvdyb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_00lg0"]
 atlas = ExtResource("5_jkmkb")
@@ -45,20 +46,20 @@ animations = [{
 
 [node name="MARIO" type="Label" parent="."]
 top_level = true
-offset_left = 96.0
-offset_top = 34.0
-offset_right = 256.0
-offset_bottom = 66.0
+offset_left = 97.0
+offset_top = 53.0
+offset_right = 257.0
+offset_bottom = 85.0
 theme_override_fonts/font = ExtResource("1_mbhd5")
 theme_override_font_sizes/font_size = 32
 text = "MARIO"
 
 [node name="WORLD" type="Label" parent="."]
 top_level = true
-offset_left = 576.0
-offset_top = 34.0
-offset_right = 736.0
-offset_bottom = 66.0
+offset_left = 577.0
+offset_top = 53.0
+offset_right = 737.0
+offset_bottom = 85.0
 theme_override_fonts/font = ExtResource("1_mbhd5")
 theme_override_font_sizes/font_size = 32
 text = "WORLD"
@@ -66,31 +67,33 @@ text = "WORLD"
 [node name="world-num" type="Label" parent="WORLD"]
 top_level = true
 layout_mode = 0
-offset_left = 608.0
-offset_top = 66.0
-offset_right = 768.0
-offset_bottom = 98.0
+offset_left = 611.0
+offset_top = 86.0
+offset_right = 771.0
+offset_bottom = 118.0
 theme_override_fonts/font = ExtResource("1_mbhd5")
 theme_override_font_sizes/font_size = 32
+text = "1"
 script = ExtResource("2_4la43")
 
 [node name="level-num" type="Label" parent="WORLD"]
 top_level = true
 layout_mode = 0
-offset_left = 672.0
-offset_top = 66.0
-offset_right = 832.0
-offset_bottom = 98.0
+offset_left = 675.0
+offset_top = 86.0
+offset_right = 835.0
+offset_bottom = 118.0
 theme_override_fonts/font = ExtResource("1_mbhd5")
 theme_override_font_sizes/font_size = 32
+text = "1"
 script = ExtResource("3_7prd0")
 
 [node name="TIME" type="Label" parent="."]
 top_level = true
-offset_left = 800.0
-offset_top = 34.0
-offset_right = 928.0
-offset_bottom = 66.0
+offset_left = 801.0
+offset_top = 53.0
+offset_right = 929.0
+offset_bottom = 85.0
 theme_override_fonts/font = ExtResource("1_mbhd5")
 theme_override_font_sizes/font_size = 32
 text = "TIME"
@@ -108,20 +111,20 @@ script = ExtResource("4_xfb74")
 
 [node name="-" type="Label" parent="."]
 top_level = true
-offset_left = 640.0
-offset_top = 66.0
-offset_right = 1056.0
-offset_bottom = 98.0
+offset_left = 641.0
+offset_top = 85.0
+offset_right = 1057.0
+offset_bottom = 117.0
 theme_override_fonts/font = ExtResource("1_mbhd5")
 theme_override_font_sizes/font_size = 32
 text = "-"
 
 [node name="x" type="Label" parent="."]
 top_level = true
-offset_left = 384.0
-offset_top = 66.0
-offset_right = 416.0
-offset_bottom = 98.0
+offset_left = 385.0
+offset_top = 85.0
+offset_right = 417.0
+offset_bottom = 117.0
 theme_override_fonts/font = ExtResource("1_mbhd5")
 theme_override_font_sizes/font_size = 32
 text = "x"
@@ -132,20 +135,20 @@ anchor_left = 0.001
 anchor_top = 0.001
 anchor_right = 0.001
 anchor_bottom = 0.001
-offset_left = 94.976
-offset_top = 65.04
-offset_right = 318.976
-offset_bottom = 97.04
+offset_left = 95.976
+offset_top = 84.04
+offset_right = 319.976
+offset_bottom = 116.04
 theme_override_fonts/font = ExtResource("1_mbhd5")
 theme_override_font_sizes/font_size = 32
-text = "0000000"
+text = "000000"
 script = ExtResource("5_lydrt")
 
 [node name="CoinCount" type="Label" parent="."]
-offset_left = 416.0
-offset_top = 66.0
-offset_right = 480.0
-offset_bottom = 98.0
+offset_left = 417.0
+offset_top = 85.0
+offset_right = 481.0
+offset_bottom = 117.0
 theme_override_fonts/font = ExtResource("1_mbhd5")
 theme_override_font_sizes/font_size = 32
 text = "00"
@@ -154,7 +157,7 @@ script = ExtResource("6_loimp")
 [node name="Coin" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 texture_repeat = 1
-position = Vector2(368, 82)
+position = Vector2(370, 102)
 scale = Vector2(4.125, 4.125)
 sprite_frames = SubResource("SpriteFrames_bq6n6")
 autoplay = "default"
@@ -169,5 +172,16 @@ texture = ExtResource("5_vqw33")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.4
 autostart = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_vvdyb")
 
 [connection signal="timeout" from="Timer" to="TIME/timer" method="_on_timer_timeout"]

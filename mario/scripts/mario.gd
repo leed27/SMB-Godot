@@ -56,6 +56,10 @@ var gravity = stop_fall#ProjectSettings.get_setting("physics/2d/default_gravity"
 @onready var hurt_animation = $Hurt
 @onready var jump_sfx = $SFX/JumpSFX
 @onready var big_jump_sfx = $SFX/BigJumpSFX
+@onready var die_sfx = $SFX/DieSFX
+
+#scripts
+@onready var bg = $"../BG"
 
 
 
@@ -74,11 +78,23 @@ func reset_gravity():
 	gravity = stop_fall
 	
 func _ready():
-	big_mario.hide()
+	if Global.power == 1:
+		animated_sprite = $AnimatedSprite2D
+		big_mario.hide()
+		animated_sprite.show()
+		
+	elif Global.power == 2:
+		big_mario.show()
+		animated_sprite.hide()
+		animated_sprite = big_mario
+		jump_sfx = big_jump_sfx
+		
+	#big_mario.hide()
 	
-func _process(delta):
-	if Global.power == 0:
-		die()
+#func _process(delta):
+	#
+	#if Global.power == 0:
+		#die()
 
 
 func _physics_process(delta):
@@ -278,6 +294,9 @@ func _on_area_2d_area_entered(area):
 			gravity = run_fall
 		
 func handle_enemy_collision(enemy: Enemy):
+	if powerup_transition == true:
+		return
+		
 	if enemy == null:
 		print("null")
 		return
@@ -342,12 +361,14 @@ func powerup():
 	print(Global.power)
 	if Global.power == 2:
 		transition("powerup")
+		##TODO: fix powerup animation being weird while jumping
+		powerup_animation.play("powerup")
 		big_mario.show()
 		animated_sprite.hide()
 		animated_sprite = big_mario
 		jump_sfx = big_jump_sfx
 		
-		powerup_animation.play("powerup")
+		
 		
 func transition(str):
 	if str == "powerup":
@@ -375,10 +396,11 @@ func hurt():
 		#invincible()
 	if Global.power == 1:
 		transition("powerup")
+		##TODO: fix hurt animation, clipping into ground and not animated correctly with the right images
+		hurt_animation.play("hurt")
 		animated_sprite = $AnimatedSprite2D
 		big_mario.hide()
 		animated_sprite.show()
-		hurt_animation.play("hurt")
 		invincible()
 	if Global.power == 0:
 		die()
@@ -386,11 +408,26 @@ func hurt():
 	
 	
 func die():
-	transition("death")
+	##TODO: make the death actually go up and down
 	Global.power = 1
-	get_tree().reload_current_scene()
+	hurt_animation.play("diehurt")
+	get_tree().paused = true
+	transition("death")
+	bg.stream_paused = true
+	animated_sprite = $AnimatedSprite2D
+	big_mario.hide()
+	animated_sprite.show()
+	animated_sprite.play("dead")
 	print("ong u really died for sure 4reals")
-	powerup_transition = false
+	die_sfx.play()
+	await die_sfx.finished
+	get_tree().paused = false
+	get_tree().reload_current_scene()
+	#bg.stream_paused = false
+	#
+	#print("ong u really died for sure 4reals")
+	#powerup_transition = false
+
 	
 func invincible():
 	print("haha you are invincible!!")
@@ -398,6 +435,7 @@ func invincible():
 
 func _on_powerup_timer_timeout():
 	powerup_transition = false
+	powerup_timer.stop()
 	get_tree().paused = false
 	
 

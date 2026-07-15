@@ -20,6 +20,7 @@ var is_stomped = false
 @onready var collision_shape_2d = $CollisionShape2D
 @onready var killzone = $Killzone
 
+
 const POINTS = preload("res://mario/scenes/points.tscn")
 
 func disablecollision():
@@ -36,17 +37,20 @@ func die():
 	direction = 0
 	animated_sprite.play("stomp")
 	$Stomp.play()
-	
+	#
+#func _ready():
+	#left.add_exception()
+	#right.add_exception()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	#only moves once appeared on screen
 	if paused == true:
 		return
-	if right.is_colliding():
+	if right.is_colliding() && right.get_collider() && !right.get_collider().has_method("hurt"):
 		direction = -1
 		animated_sprite.flip_h = true
-	if left.is_colliding():
+	if left.is_colliding()&& left.get_collider() && !left.get_collider().has_method("hurt"):
 		direction = 1
 		animated_sprite.flip_h = false
 		

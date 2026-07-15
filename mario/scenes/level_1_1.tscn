@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://cfpfixjwn70wn"]
+[gd_scene load_steps=45 format=3 uid="uid://cfpfixjwn70wn"]
 
 [ext_resource type="Script" path="res://mario/scripts/level_1_1.gd" id="1_eemvj"]
 [ext_resource type="PackedScene" uid="uid://d2ep6cebs0mtc" path="res://mario/scenes/mario.tscn" id="2_bpyv4"]
@@ -23,6 +23,7 @@
 [ext_resource type="Script" path="res://mario/scripts/BG.gd" id="19_n77hm"]
 [ext_resource type="Script" path="res://mario/scripts/Pause.gd" id="21_uly0h"]
 [ext_resource type="AudioStream" uid="uid://o6fvppsnbpgf" path="res://mario/assets/sounds/Pause.wav" id="22_pka3y"]
+[ext_resource type="Script" path="res://mario/scenes/Death.gd" id="24_dim54"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_e4wc8"]
 
@@ -552,5 +553,8 @@ script = ExtResource("21_uly0h")
 
 [node name="PauseSFX" type="AudioStreamPlayer" parent="Pause"]
 stream = ExtResource("22_pka3y")
+
+[node name="Death" type="Node" parent="."]
+script = ExtResource("24_dim54")
 
 [connection signal="area_entered" from="Killzone" to="Killzone" method="_on_area_entered"]

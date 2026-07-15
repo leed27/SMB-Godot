@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://twsur3rrkw6q"]
+
+[ext_resource type="Script" path="res://mario/scenes/level_transition.gd" id="1_1niwr"]
+[ext_resource type="Texture2D" uid="uid://be3cfa45p7vsm" path="res://mario/assets/sprites/hud elements.png" id="2_boe1s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_62144"]
+atlas = ExtResource("2_boe1s")
+region = Rect2(0, 380, 256, 240)
+margin = Rect2(-0.435, 0, 0, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8c2u3"]
+atlas = ExtResource("2_boe1s")
+region = Rect2(0, 519, 251, 64)
+
+[node name="LevelTransition" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 1.0
+offset_right = 1024.0
+offset_bottom = 961.0
+script = ExtResource("1_1niwr")
+
+[node name="level_change" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.078
+anchor_bottom = 1.133
+offset_left = 3.0
+offset_top = -12.0
+offset_right = -76.8721
+offset_bottom = -139.68
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_62144")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+offset_left = -1.0
+offset_top = 1.0
+offset_right = 783.0
+offset_bottom = 865.0
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="level_change3" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.078
+anchor_bottom = 1.133
+offset_top = 839.0
+offset_right = -79.8721
+offset_bottom = 711.32
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_8c2u3")
