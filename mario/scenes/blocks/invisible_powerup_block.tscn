@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://cstjtbh8g06ok"]
+
+[ext_resource type="PackedScene" uid="uid://bvxq4xmslwbs0" path="res://mario/scenes/blocks/hittable_block.tscn" id="1_un0di"]
+[ext_resource type="Script" path="res://mario/scripts/invisible_powerup_block.gd" id="2_gaq2b"]
+[ext_resource type="AudioStream" uid="uid://c0atloop4n6y7" path="res://mario/assets/sounds/Item.wav" id="4_mat1u"]
+[ext_resource type="Texture2D" uid="uid://da52cpgoy0sh6" path="res://mario/assets/sprites/items and points.png" id="5_2bny0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fyley"]
+atlas = ExtResource("5_2bny0")
+region = Rect2(0, 26, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2e3lp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fyley")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="InvisiblePowerupBlock" instance=ExtResource("1_un0di")]
+script = ExtResource("2_gaq2b")
+powerup_rise_speed = -20.0
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+z_index = 1
+
+[node name="Spawn" type="AudioStreamPlayer" parent="." index="5"]
+stream = ExtResource("4_mat1u")
+
+[node name="Powerup" type="AnimatedSprite2D" parent="." index="6"]
+sprite_frames = SubResource("SpriteFrames_2e3lp")
+autoplay = "default"
+
+[connection signal="timeout" from="BounceTimer" to="." method="_on_bounce_timer_timeout"]

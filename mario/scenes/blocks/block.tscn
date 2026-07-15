@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://dpmpw5swlideg"]
+
+[ext_resource type="Texture2D" uid="uid://bb1n3i1ay2kh2" path="res://mario/assets/sprites/master block sheet.png" id="1_ivdsr"]
+[ext_resource type="Script" path="res://mario/scripts/Block.gd" id="1_owt8a"]
+[ext_resource type="AudioStream" uid="uid://cbldhdfc8g73u" path="res://mario/assets/sounds/Bump.wav" id="3_3khci"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8kayo"]
+size = Vector2(16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x24u2"]
+atlas = ExtResource("1_ivdsr")
+region = Rect2(349, 78, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_62mdp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x24u2")
+}],
+"loop": true,
+"name": &"collected",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2y7bk"]
+size = Vector2(16, 16)
+
+[node name="Block" type="StaticBody2D"]
+process_mode = 1
+collision_layer = 7
+collision_mask = 7
+script = ExtResource("1_owt8a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8kayo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_62mdp")
+animation = &"collected"
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_2y7bk")
+
+[node name="Bump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_3khci")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

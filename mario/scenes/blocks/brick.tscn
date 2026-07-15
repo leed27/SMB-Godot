@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://brsw8flmwp23q"]
+
+[ext_resource type="PackedScene" uid="uid://bvxq4xmslwbs0" path="res://mario/scenes/blocks/hittable_block.tscn" id="1_mio8l"]
+[ext_resource type="Script" path="res://scripts/Brick.gd" id="2_6pkix"]
+[ext_resource type="Texture2D" uid="uid://c8aoeooi3mvff" path="res://mario/assets/sprites/blocks and bricks.png" id="3_u2jit"]
+[ext_resource type="Texture2D" uid="uid://bra0aa8naaj7g" path="res://mario/assets/sprites/brickparticle.png" id="4_4d8ec"]
+[ext_resource type="AudioStream" uid="uid://idvtc1oqwasc" path="res://mario/assets/sounds/Break.wav" id="5_inqxp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_73ndo"]
+atlas = ExtResource("3_u2jit")
+region = Rect2(17, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ohtt0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_73ndo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Brick" instance=ExtResource("1_mio8l")]
+script = ExtResource("2_6pkix")
+particle_gravity = 1200.0
+particle_y_speed = -300.0
+particle_top_y_speed = -400.0
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_ohtt0")
+animation = &"default"
+
+[node name="Break" type="AudioStreamPlayer2D" parent="." index="6"]
+stream = ExtResource("5_inqxp")
+volume_db = 10.0
+
+[node name="BreakTimer" type="Timer" parent="." index="7"]
+wait_time = 5.0
+
+[node name="BrickFlip" type="Timer" parent="." index="8"]
+wait_time = 0.067
+
+[node name="BottomLeft" type="Sprite2D" parent="." index="9"]
+visible = false
+position = Vector2(-5, 3)
+rotation = -3.14159
+texture = ExtResource("4_4d8ec")
+
+[node name="TopLeft" type="Sprite2D" parent="." index="10"]
+visible = false
+position = Vector2(-5, -6)
+rotation = -3.14159
+texture = ExtResource("4_4d8ec")
+
+[node name="BottomRight" type="Sprite2D" parent="." index="11"]
+visible = false
+position = Vector2(4, -6)
+rotation = -3.14159
+texture = ExtResource("4_4d8ec")
+
+[node name="TopRight" type="Sprite2D" parent="." index="12"]
+visible = false
+position = Vector2(4, 3)
+rotation = -3.14159
+texture = ExtResource("4_4d8ec")
+
+[connection signal="timeout" from="BreakTimer" to="." method="_on_break_timer_timeout"]

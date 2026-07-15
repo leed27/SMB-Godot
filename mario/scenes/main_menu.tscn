@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://camfoejix7kki"]
+
+[ext_resource type="Texture2D" uid="uid://diqygxu566dy8" path="res://mario/assets/sprites/title screen.png" id="1_5mtkk"]
+[ext_resource type="Script" path="res://mario/scripts/main_menu.gd" id="1_xwstx"]
+
+[node name="Main_Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xwstx")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_5mtkk")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="1P_Start" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28125
+anchor_top = 0.595833
+anchor_right = 0.753906
+anchor_bottom = 0.629167
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Other_Start" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+anchor_left = 0.28125
+anchor_top = 0.6625
+anchor_right = 0.753906
+anchor_bottom = 0.7
+metadata/_edit_use_anchors_ = true

@@ -1,0 +1,91 @@
+[gd_scene load_steps=15 format=3 uid="uid://bnr1uwcyuca35"]
+
+[ext_resource type="PackedScene" uid="uid://bvxq4xmslwbs0" path="res://mario/scenes/blocks/hittable_block.tscn" id="1_lruij"]
+[ext_resource type="Texture2D" uid="uid://bb1n3i1ay2kh2" path="res://mario/assets/sprites/master block sheet.png" id="2_cqqti"]
+[ext_resource type="Script" path="res://QuestionBlock.gd" id="2_rf1fj"]
+[ext_resource type="AudioStream" uid="uid://c0cc85ru7krc6" path="res://mario/assets/sounds/Coin.wav" id="4_hr1i7"]
+[ext_resource type="Texture2D" uid="uid://da52cpgoy0sh6" path="res://mario/assets/sprites/items and points.png" id="5_q07u8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_va62k"]
+atlas = ExtResource("5_q07u8")
+region = Rect2(200, 36, 8, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5524q"]
+atlas = ExtResource("5_q07u8")
+region = Rect2(210, 36, 8, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahipt"]
+atlas = ExtResource("5_q07u8")
+region = Rect2(180, 36, 8, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xk3al"]
+atlas = ExtResource("5_q07u8")
+region = Rect2(190, 36, 8, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2e3lp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_va62k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5524q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahipt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xk3al")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jm3x6"]
+atlas = ExtResource("2_cqqti")
+region = Rect2(298, 78, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2i8t8"]
+atlas = ExtResource("2_cqqti")
+region = Rect2(315, 78, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h51o3"]
+atlas = ExtResource("2_cqqti")
+region = Rect2(332, 78, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_686ya"]
+animations = [{
+"frames": [{
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_jm3x6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2i8t8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h51o3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2i8t8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="QuestionBlock" instance=ExtResource("1_lruij")]
+script = ExtResource("2_rf1fj")
+coin_gravity = 900.0
+coin_initial_bounce_y_speed = -300.0
+
+[node name="Coin" type="AudioStreamPlayer" parent="." index="5"]
+stream = ExtResource("4_hr1i7")
+
+[node name="Coin2" type="AnimatedSprite2D" parent="." index="6"]
+sprite_frames = SubResource("SpriteFrames_2e3lp")
+autoplay = "default"
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." index="7"]
+sprite_frames = SubResource("SpriteFrames_686ya")
+autoplay = "default"

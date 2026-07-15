@@ -1,0 +1,75 @@
+[gd_scene load_steps=10 format=3 uid="uid://bpaf2r1lh0sgv"]
+
+[ext_resource type="Script" path="res://mario/scripts/star.gd" id="1_xyct7"]
+[ext_resource type="Texture2D" uid="uid://da52cpgoy0sh6" path="res://mario/assets/sprites/items and points.png" id="2_6xjt7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rxs3v"]
+atlas = ExtResource("2_6xjt7")
+region = Rect2(106, 44, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhl4p"]
+atlas = ExtResource("2_6xjt7")
+region = Rect2(124, 44, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6mfd"]
+atlas = ExtResource("2_6xjt7")
+region = Rect2(142, 44, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdry3"]
+atlas = ExtResource("2_6xjt7")
+region = Rect2(160, 44, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0dabs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rxs3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhl4p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e6mfd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wdry3")
+}],
+"loop": true,
+"name": &"star",
+"speed": 30.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_64jva"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4q3pn"]
+size = Vector2(6, 1)
+
+[node name="Star" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_xyct7")
+
+[node name="MushroomSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0dabs")
+animation = &"star"
+autoplay = "star"
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_64jva")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7.5)
+shape = SubResource("RectangleShape2D_4q3pn")
+
+[node name="Right" type="RayCast2D" parent="."]
+target_position = Vector2(7, 0)
+
+[node name="Left" type="RayCast2D" parent="."]
+target_position = Vector2(-7, 0)
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

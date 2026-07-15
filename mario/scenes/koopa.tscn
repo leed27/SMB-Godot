@@ -1,0 +1,92 @@
+[gd_scene load_steps=12 format=3 uid="uid://gb8scsev7ejk"]
+
+[ext_resource type="Script" path="res://mario/scripts/koopa.gd" id="1_3nmtu"]
+[ext_resource type="AudioStream" uid="uid://djcl1vgjf1dcb" path="res://mario/assets/sounds/Squish.wav" id="2_64ha7"]
+[ext_resource type="PackedScene" uid="uid://cgg5mwm8ultbm" path="res://scenes/killzone.tscn" id="3_h2s2y"]
+[ext_resource type="Script" path="res://mario/scripts/killzone2.gd" id="4_powuq"]
+[ext_resource type="Texture2D" uid="uid://bjwxih2yixy56" path="res://mario/assets/sprites/mobs.png" id="5_dgfu1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_otrmv"]
+size = Vector2(10, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyxac"]
+size = Vector2(12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pps85"]
+atlas = ExtResource("5_dgfu1")
+region = Rect2(0, 112, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ufva2"]
+atlas = ExtResource("5_dgfu1")
+region = Rect2(18, 112, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6r7yh"]
+atlas = ExtResource("5_dgfu1")
+region = Rect2(72, 110, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lrnww"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pps85")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ufva2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6r7yh")
+}],
+"loop": true,
+"name": &"stomp",
+"speed": 5.0
+}]
+
+[node name="Koopa" type="CharacterBody2D"]
+process_mode = 1
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_3nmtu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_otrmv")
+
+[node name="Right" type="RayCast2D" parent="."]
+target_position = Vector2(6, 0)
+
+[node name="Left" type="RayCast2D" parent="."]
+target_position = Vector2(-6, 0)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(4.76837e-07, 5.96046e-08)
+scale = Vector2(0.8, 0.8)
+
+[node name="Stomp" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_64ha7")
+
+[node name="Killzone" parent="." instance=ExtResource("3_h2s2y")]
+collision_mask = 1
+script = ExtResource("4_powuq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_jyxac")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -4)
+sprite_frames = SubResource("SpriteFrames_lrnww")
+autoplay = "default"
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="area_entered" from="Killzone" to="." method="_on_killzone_area_entered"]
+[connection signal="body_entered" from="Killzone" to="." method="_on_killzone_body_entered"]

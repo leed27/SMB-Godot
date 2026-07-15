@@ -1,0 +1,79 @@
+extends HittableBlock
+class_name InvisiblePowerupBlock
+
+@export var powerup_rise_speed: float = -20.0
+
+var powerup_goal_y_position: int = 0
+var bounced = false
+
+@onready var animated_sprite_2d = $AnimatedSprite2D
+@onready var spawn = $Spawn
+@onready var powerup = $Powerup
+const ONEUP = preload("res://mario/scenes/oneup.tscn")
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	orig_y_position = animated_sprite_2d.position.y
+	powerup.position.y = 1
+	powerup.hide()
+	animated_sprite_2d.hide()
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	super._process(delta)
+	if bounce_timer.is_stopped():
+		animated_sprite_2d.position.y = orig_y_position
+		y_speed = 0.0
+		if int(powerup.position.y) == int(powerup_goal_y_position):
+			#if powerup == ONEUP:
+			var oneup
+			oneup = ONEUP.instantiate()
+			oneup.position = self.position + Vector2(2, -10)
+			get_tree().root.add_child(oneup)
+			#elif powerup == fireflower:
+				#FIREFLOWER.instantiate()
+			#elif powerup == superstar:
+				#SUPERSTAR.instantiate()
+			powerup.hide()
+			set_process(false)
+	
+	#hides coin and puts a points sprite
+
+	if powerup.position.y != powerup_goal_y_position && powerup.position.y != 1:
+		powerup.position.y += powerup_rise_speed * delta
+		
+		
+		
+		
+		
+	
+func _bounce():
+	if bounced == true:
+		return
+	animated_sprite_2d.show()
+	y_speed = initial_bounce_y_speed
+	bounce_timer.start()
+	bounced = true
+	
+
+
+
+func _on_area_2d_area_entered(area):
+	super._on_area_2d_area_entered(area)
+	if area.get_name() == "BlockCollision":
+		_bounce()
+
+func spawn_powerup():
+#func spawn_powerup(str powerup)
+	spawn.play()
+	powerup.position.y = orig_y_position #- 15
+	powerup_goal_y_position = orig_y_position - 16
+	powerup.show()
+	powerup.play("ONEUP")
+	#powerup.play("insert powerup, as str")
+	
+
+
+func _on_bounce_timer_timeout():
+	spawn_powerup()

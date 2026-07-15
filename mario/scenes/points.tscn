@@ -1,0 +1,149 @@
+[gd_scene load_steps=16 format=3 uid="uid://c66mtobej5b68"]
+
+[ext_resource type="Texture2D" uid="uid://da52cpgoy0sh6" path="res://mario/assets/sprites/items and points.png" id="1_5esdd"]
+[ext_resource type="Script" path="res://mario/scripts/points.gd" id="2_rnrys"]
+[ext_resource type="AudioStream" uid="uid://crvu6451hkwag" path="res://mario/assets/sounds/1up.wav" id="3_enfje"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v3bm3"]
+atlas = ExtResource("1_5esdd")
+region = Rect2(235, 26, 11, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u1fsn"]
+atlas = ExtResource("1_5esdd")
+region = Rect2(252, 26, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8m5p"]
+atlas = ExtResource("1_5esdd")
+region = Rect2(252, 76, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_joybo"]
+atlas = ExtResource("1_5esdd")
+region = Rect2(234, 36, 12, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v3u5b"]
+atlas = ExtResource("1_5esdd")
+region = Rect2(252, 36, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ceo1b"]
+atlas = ExtResource("1_5esdd")
+region = Rect2(234, 46, 12, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8pcd"]
+atlas = ExtResource("1_5esdd")
+region = Rect2(252, 46, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_240jg"]
+atlas = ExtResource("1_5esdd")
+region = Rect2(234, 56, 12, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_davvh"]
+atlas = ExtResource("1_5esdd")
+region = Rect2(252, 56, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q06nf"]
+atlas = ExtResource("1_5esdd")
+region = Rect2(234, 66, 12, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gja15"]
+atlas = ExtResource("1_5esdd")
+region = Rect2(252, 66, 16, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4wj5l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v3bm3")
+}],
+"loop": true,
+"name": &"100",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u1fsn")
+}],
+"loop": true,
+"name": &"1000",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8m5p")
+}],
+"loop": true,
+"name": &"1UP",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_joybo")
+}],
+"loop": true,
+"name": &"200",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v3u5b")
+}],
+"loop": true,
+"name": &"2000",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ceo1b")
+}],
+"loop": true,
+"name": &"400",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8pcd")
+}],
+"loop": true,
+"name": &"4000",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_240jg")
+}],
+"loop": true,
+"name": &"500",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_davvh")
+}],
+"loop": true,
+"name": &"5000",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q06nf")
+}],
+"loop": true,
+"name": &"800",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gja15")
+}],
+"loop": true,
+"name": &"8000",
+"speed": 5.0
+}]
+
+[node name="Points" type="AnimatedSprite2D"]
+process_mode = 1
+sprite_frames = SubResource("SpriteFrames_4wj5l")
+animation = &"1UP"
+script = ExtResource("2_rnrys")
+
+[node name="Oneup" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_enfje")

@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://cmol83pu7fk2w"]
+
+[ext_resource type="Script" path="res://mario/scripts/oneup.gd" id="1_payqt"]
+[ext_resource type="Texture2D" uid="uid://da52cpgoy0sh6" path="res://mario/assets/sprites/items and points.png" id="2_ilmae"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fyley"]
+atlas = ExtResource("2_ilmae")
+region = Rect2(0, 26, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0dabs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fyley")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_64jva"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4q3pn"]
+size = Vector2(6, 1)
+
+[node name="Oneup" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_payqt")
+
+[node name="OneupSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0dabs")
+autoplay = "default"
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_64jva")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7.5)
+shape = SubResource("RectangleShape2D_4q3pn")
+
+[node name="Right" type="RayCast2D" parent="."]
+target_position = Vector2(7, 0)
+
+[node name="Left" type="RayCast2D" parent="."]
+target_position = Vector2(-7, 0)
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,0 +1,101 @@
+[gd_scene load_steps=14 format=3 uid="uid://bna34p7tiu0tu"]
+
+[ext_resource type="PackedScene" uid="uid://bvxq4xmslwbs0" path="res://mario/scenes/blocks/hittable_block.tscn" id="1_bxlfv"]
+[ext_resource type="Script" path="res://mario/scripts/powerup_brick.gd" id="2_obwab"]
+[ext_resource type="Texture2D" uid="uid://c8aoeooi3mvff" path="res://mario/assets/sprites/blocks and bricks.png" id="3_h0isy"]
+[ext_resource type="AudioStream" uid="uid://c0atloop4n6y7" path="res://mario/assets/sounds/Item.wav" id="4_cgx28"]
+[ext_resource type="Texture2D" uid="uid://da52cpgoy0sh6" path="res://mario/assets/sprites/items and points.png" id="5_50vs5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_73ndo"]
+atlas = ExtResource("3_h0isy")
+region = Rect2(17, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_686ya"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_73ndo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4bwux"]
+atlas = ExtResource("5_50vs5")
+region = Rect2(0, 8, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rxs3v"]
+atlas = ExtResource("5_50vs5")
+region = Rect2(106, 44, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhl4p"]
+atlas = ExtResource("5_50vs5")
+region = Rect2(124, 44, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6mfd"]
+atlas = ExtResource("5_50vs5")
+region = Rect2(142, 44, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdry3"]
+atlas = ExtResource("5_50vs5")
+region = Rect2(160, 44, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2e3lp"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"fire flower",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4bwux")
+}],
+"loop": true,
+"name": &"mushroom",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rxs3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhl4p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e6mfd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wdry3")
+}],
+"loop": true,
+"name": &"star",
+"speed": 30.0
+}]
+
+[node name="PowerupBrick" instance=ExtResource("1_bxlfv")]
+script = ExtResource("2_obwab")
+powerup_rise_speed = -20.0
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." index="0"]
+visibility_layer = 4
+z_index = 2
+y_sort_enabled = true
+sprite_frames = SubResource("SpriteFrames_686ya")
+autoplay = "default"
+
+[node name="AnimatedSprite2D" parent="." index="2"]
+visible = false
+z_index = 1
+
+[node name="Spawn" type="AudioStreamPlayer" parent="." index="6"]
+stream = ExtResource("4_cgx28")
+
+[node name="Powerup" type="AnimatedSprite2D" parent="." index="7"]
+sprite_frames = SubResource("SpriteFrames_2e3lp")
+animation = &"star"
+autoplay = "star"
+frame_progress = 0.3113
+
+[connection signal="timeout" from="BounceTimer" to="." method="_on_bounce_timer_timeout"]

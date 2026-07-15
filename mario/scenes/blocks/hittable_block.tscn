@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvxq4xmslwbs0"]
+
+[ext_resource type="PackedScene" uid="uid://dpmpw5swlideg" path="res://mario/scenes/blocks/block.tscn" id="1_y8wws"]
+[ext_resource type="Script" path="res://HittableBlock.gd" id="2_ryiea"]
+
+[node name="HittableBlock" instance=ExtResource("1_y8wws")]
+script = ExtResource("2_ryiea")
+bounce_gravity = 900.0
+initial_bounce_y_speed = -100.0
+
+[node name="BounceTimer" type="Timer" parent="." index="3"]
+wait_time = 0.25
+one_shot = true
+
+[node name="RayCast2D" type="RayCast2D" parent="." index="5"]
+target_position = Vector2(0, -13)
+collision_mask = 7
+collide_with_areas = true

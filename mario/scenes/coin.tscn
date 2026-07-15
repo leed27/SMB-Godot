@@ -1,0 +1,163 @@
+[gd_scene load_steps=12 format=3 uid="uid://bmeccpceioq46"]
+
+[ext_resource type="Script" path="res://scripts/coin.gd" id="1_jp6ty"]
+[ext_resource type="Texture2D" uid="uid://bb1n3i1ay2kh2" path="res://mario/assets/sprites/master block sheet.png" id="2_mio4b"]
+[ext_resource type="AudioStream" uid="uid://c0cc85ru7krc6" path="res://mario/assets/sounds/Coin.wav" id="3_3rc0m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pycq1"]
+atlas = ExtResource("2_mio4b")
+region = Rect2(298, 95, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dcd0"]
+atlas = ExtResource("2_mio4b")
+region = Rect2(315, 95, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fst6e"]
+atlas = ExtResource("2_mio4b")
+region = Rect2(332, 95, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_je34y"]
+animations = [{
+"frames": [{
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_pycq1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dcd0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fst6e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dcd0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yrl3j"]
+size = Vector2(10, 14)
+
+[sub_resource type="Animation" id="Animation_aw123"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PickupSound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_11e0m"]
+resource_name = "pickup"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PickupSound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bqmnb"]
+_data = {
+"RESET": SubResource("Animation_aw123"),
+"pickup": SubResource("Animation_11e0m")
+}
+
+[node name="Coin" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_jp6ty")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_je34y")
+autoplay = "default"
+frame_progress = 0.6314
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_yrl3j")
+
+[node name="PickupSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_3rc0m")
+volume_db = -10.188
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bqmnb")
+}
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

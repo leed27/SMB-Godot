@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://blk0nxfk5mglv"
+path="res://.godot/imported/01. Ground Theme.mp3-2a3eacef563ad3c97d174f609e05e8b3.mp3str"
+
+[deps]
+
+source_file="res://mario/assets/music/01. Ground Theme.mp3"
+dest_files=["res://.godot/imported/01. Ground Theme.mp3-2a3eacef563ad3c97d174f609e05e8b3.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
